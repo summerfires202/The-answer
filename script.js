@@ -6,7 +6,7 @@ let clicked = [];
 for (let i = 0; i < 16; i++) {
     const piece = document.createElement("div");
     piece.className = "piece";
-    piece.style.backgroundImage = "url('anime.jpg')";
+    piece.style.backgroundImage = "url('file_00000000dab07208bef9dfc27fdec606.png')";;
     piece.style.backgroundPosition =
         `${-(i % 4) * 80}px ${-Math.floor(i / 4) * 80}px`;
 
