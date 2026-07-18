@@ -14,20 +14,19 @@ h1{
 }
 
 #puzzle{
-    width:320px;
-    height:320px;
-    border:3px solid #ff4081;
+    width:400px;
+    height:400px;
     display:grid;
     grid-template-columns:repeat(4,1fr);
     grid-template-rows:repeat(4,1fr);
     gap:2px;
-    margin:20px;
+    border:4px solid #ff4081;
 }
 
 .piece{
-    border:1px solid #fff;
-    background-size:320px 320px;
+    border:1px solid white;
     cursor:pointer;
+    background-size:400px 400px;
 }
 
 .hidden{
@@ -36,11 +35,8 @@ h1{
 
 #message{
     text-align:center;
-    color:#e91e63;
-    animation:pop .8s ease;
-}
-
-@keyframes pop{
-    from{transform:scale(.5);opacity:0;}
-    to{transform:scale(1);opacity:1;}
+    color:#28a745;
+    margin-top:20px;
+    font-size:24px;
+    font-weight:bold;
 }
