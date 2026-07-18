@@ -1,74 +1,82 @@
 const puzzle = document.getElementById("puzzle");
 const message = document.getElementById("message");
 
-const size = 4;
-const total = size * size;
+const SIZE = 4;
+const TOTAL = SIZE * SIZE;
 
-// Shuffle array
-let order = [...Array(total).keys()];
-order.sort(() => Math.random() - 0.5);
+// ⚠️ Palitan ito kung iba ang filename ng image mo
+const IMAGE = "file_00000000dab07208bef9dfc27fdec606.png";
 
-let clicked = [];
+let order = [...Array(TOTAL).keys()];
 
-for (let i = 0; i < total; i++) {
+// Fisher-Yates shuffle
+for (let i = order.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [order[i], order[j]] = [order[j], order[i]];
+}
 
-    const piece = document.createElement("div");
-    piece.className = "piece";
+let first = null;
 
-    const imgIndex = order[i];
+function drawBoard() {
+    puzzle.innerHTML = "";
 
-    piece.style.backgroundImage = "url('file_00000000dab07208bef9dfc27fdec606.png')";
-    piece.style.backgroundSize = "400px 400px";
-    piece.style.backgroundPosition =
-        `${-(imgIndex % size) * 100}px ${-Math.floor(imgIndex / size) * 100}px`;
+    for (let i = 0; i < TOTAL; i++) {
 
-    piece.dataset.correct = i;
-    piece.dataset.current = imgIndex;
+        const piece = document.createElement("div");
+        piece.className = "piece";
 
-    piece.onclick = () => {
+        const img = order[i];
 
-        if (clicked.includes(piece)) return;
+        piece.style.backgroundImage = `url(${IMAGE})`;
+        piece.style.backgroundPosition =
+            `${-(img % SIZE) * 100}px ${-Math.floor(img / SIZE) * 100}px`;
 
-        clicked.push(piece);
-        piece.style.outline = "3px solid red";
+        piece.dataset.index = i;
 
-        if (clicked.length === 2) {
+        piece.onclick = () => clickPiece(i);
 
-            const a = clicked[0];
-            const b = clicked[1];
+        puzzle.appendChild(piece);
+    }
+}
 
-            let bg = a.style.backgroundPosition;
-            a.style.backgroundPosition = b.style.backgroundPosition;
-            b.style.backgroundPosition = bg;
+function clickPiece(i) {
 
-            let cur = a.dataset.current;
-            a.dataset.current = b.dataset.current;
-            b.dataset.current = cur;
+    if (first === null) {
 
-            a.style.outline = "";
-            b.style.outline = "";
+        first = i;
+        puzzle.children[i].style.outline = "3px solid red";
+        return;
+    }
 
-            clicked = [];
+    puzzle.children[first].style.outline = "";
 
-            checkWin();
-        }
-    };
+    [order[first], order[i]] = [order[i], order[first]];
 
-    puzzle.appendChild(piece);
+    first = null;
+
+    drawBoard();
+
+    checkWin();
 }
 
 function checkWin() {
 
-    let win = true;
-
-    document.querySelectorAll(".piece").forEach(piece => {
-        if (piece.dataset.correct != piece.dataset.current) {
-            win = false;
-        }
-    });
-
-    if (win) {
-        puzzle.style.display = "none";
-        message.classList.remove("hidden");
+    for (let i = 0; i < TOTAL; i++) {
+        if (order[i] !== i) return;
     }
+
+    puzzle.style.display = "none";
+    message.classList.remove("hidden");
+
+    launchHearts();
 }
+
+function launchHearts() {
+
+    for (let i = 0; i < 60; i++) {
+
+        const heart = document.createElement("div");
+
+        heart.innerHTML = "❤️";
+
+        heart
