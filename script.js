@@ -52,4 +52,44 @@ function clickPiece(i) {
 }
 
 function launchHearts() {
-  for (let i = 0; i < 30
+  for (let i = 0; i < 30; i++) {
+    setTimeout(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (20 + Math.random() * 20) + "px";
+      heart.style.animationDuration = (3 + Math.random() * 2) + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+
+    }, i * 120);
+  }
+}
+
+function checkWin() {
+  for (let i = 0; i < TOTAL; i++) {
+    if (order[i] !== i) return;
+  }
+
+  if (typeof confetti === "function") {
+    confetti({
+      particleCount: 250,
+      spread: 100,
+      origin: { y: 0.6 }
+    });
+  }
+
+  launchHearts();
+
+  setTimeout(() => {
+    puzzle.style.display = "none";
+    message.classList.remove("hidden");
+  }, 1800);
+}
+
+drawBoard();
