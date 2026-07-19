@@ -1,64 +1,65 @@
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #ffe6f0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ffe6f0, #fff8fb);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
 }
 
 h1 {
-  color: #ff4081;
+    color: #ff4081;
+    text-align: center;
 }
 
 #puzzle {
-  width: 400px;
-  height: 400px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: 2px;
-  border: 4px solid #ff4081;
+    width: 400px;
+    height: 400px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 2px;
+    border: 4px solid #ff4081;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.15);
 }
 
 .piece {
-  border: 1px solid white;
-  cursor: pointer;
-  background-size: 400px 400px;
+    border: 1px solid #fff;
+    cursor: pointer;
+    background-size: 400px 400px;
+    transition: transform .15s;
+}
+
+.piece:hover {
+    transform: scale(1.03);
 }
 
 .hidden {
-  display: none;
+    display: none;
 }
 
 #message {
-  display: none;
-  text-align: center;
-  color: #28a745;
+    text-align: center;
+    color: #ff4081;
+    animation: fadeIn 1s ease-in-out;
 }
 
-#message:not(.hidden) {
-  display: block;
+#message h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+    animation: heartbeat 1.2s infinite;
 }
+
+#message h2,
+#message h3 {
+    color: #666;
+}
+
 .heart {
-  position: fixed;
-  bottom: -50px;
-  font-size: 24px;
-  animation: floatHeart 4s linear forwards;
-  pointer-events: none;
-  z-index: 9999;
-}
-
-@keyframes floatHeart {
-  0% {
-    transform: translateY(0) scale(0.8);
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateY(-110vh) scale(1.4);
-    opacity: 0;
-  }
-}
+    position: fixed;
+    bottom: -40
