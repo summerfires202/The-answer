@@ -3,12 +3,10 @@ const message = document.getElementById("message");
 
 const SIZE = 4;
 const TOTAL = SIZE * SIZE;
-
 const IMAGE = "file_00000000dab07208bef9dfc27fdec606.png";
 
 let order = [...Array(TOTAL).keys()];
 
-// Fisher-Yates Shuffle
 for (let i = order.length - 1; i > 0; i--) {
   const j = Math.floor(Math.random() * (i + 1));
   [order[i], order[j]] = [order[j], order[i]];
@@ -26,11 +24,10 @@ function drawBoard() {
     const img = order[i];
 
     piece.style.backgroundImage = `url(${IMAGE})`;
-    piece.style.backgroundSize = `${SIZE * 100}px ${SIZE * 100}px`;
+    piece.style.backgroundSize = "400px 400px";
     piece.style.backgroundPosition =
       `${-(img % SIZE) * 100}px ${-Math.floor(img / SIZE) * 100}px`;
 
-    piece.dataset.index = i;
     piece.onclick = () => clickPiece(i);
 
     puzzle.appendChild(piece);
@@ -58,16 +55,8 @@ function checkWin() {
     if (order[i] !== i) return;
   }
 
-  confetti({
-    particleCount: 200,
-    spread: 90,
-    origin: { y: 0.6 }
-  });
-
-  setTimeout(() => {
-    puzzle.style.display = "none";
-    message.classList.remove("hidden");
-  }, 700);
+  puzzle.style.display = "none";
+  message.classList.remove("hidden");
 }
 
 drawBoard();
