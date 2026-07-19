@@ -5,7 +5,8 @@ const SIZE = 4;
 const TOTAL = SIZE * SIZE;
 
 // Palitan ito kung iba ang filename ng image mo
-const IMAGE = "https://picsum.photos/400";
+const IMAGE = "file_00000000dab07208bef9dfc27fdec606.png";
+
 let order = [...Array(TOTAL).keys()];
 
 // Fisher-Yates shuffle
