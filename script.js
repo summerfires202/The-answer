@@ -63,7 +63,18 @@ function checkWin() {
       origin: { y: 0.6 }
     });
   }
+for (let i = 0; i < 20; i++) {
+  setTimeout(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.textContent = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
 
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 4000);
+  }, i * 150);
+}
   setTimeout(() => {
     puzzle.style.display = "none";
     message.classList.remove("hidden");
