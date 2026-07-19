@@ -7,6 +7,7 @@ const IMAGE = "file_00000000dab07208bef9dfc27fdec606.png";
 
 let order = [...Array(TOTAL).keys()];
 
+// Fisher-Yates shuffle
 for (let i = order.length - 1; i > 0; i--) {
   const j = Math.floor(Math.random() * (i + 1));
   [order[i], order[j]] = [order[j], order[i]];
@@ -55,8 +56,18 @@ function checkWin() {
     if (order[i] !== i) return;
   }
 
-  puzzle.style.display = "none";
-  message.classList.remove("hidden");
+  if (typeof confetti === "function") {
+    confetti({
+      particleCount: 200,
+      spread: 90,
+      origin: { y: 0.6 }
+    });
+  }
+
+  setTimeout(() => {
+    puzzle.style.display = "none";
+    message.classList.remove("hidden");
+  }, 700);
 }
 
 drawBoard();
