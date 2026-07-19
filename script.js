@@ -58,8 +58,16 @@ function checkWin() {
     if (order[i] !== i) return;
   }
 
-  puzzle.style.display = "none";
-  message.classList.remove("hidden");
-}
+  // Show confetti
+  confetti({
+    particleCount: 200,
+    spread: 90,
+    origin: { y: 0.6 }
+  });
 
-drawBoard();
+  // Show the message after a short delay
+  setTimeout(() => {
+    puzzle.style.display = "none";
+    message.classList.remove("hidden");
+  }, 700);
+}
