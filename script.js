@@ -7,7 +7,7 @@ const IMAGE = "file_00000000dab07208bef9dfc27fdec606.png";
 
 let order = [...Array(TOTAL).keys()];
 
-// Fisher-Yates shuffle
+// Fisher-Yates Shuffle
 for (let i = order.length - 1; i > 0; i--) {
   const j = Math.floor(Math.random() * (i + 1));
   [order[i], order[j]] = [order[j], order[i]];
@@ -38,7 +38,7 @@ function drawBoard() {
 function clickPiece(i) {
   if (first === null) {
     first = i;
-    puzzle.children[i].style.outline = "3px solid red";
+    puzzle.children[i].style.outline = "3px solid #ff4081";
     return;
   }
 
@@ -51,34 +51,5 @@ function clickPiece(i) {
   checkWin();
 }
 
-function checkWin() {
-  for (let i = 0; i < TOTAL; i++) {
-    if (order[i] !== i) return;
-  }
-
-  if (typeof confetti === "function") {
-    confetti({
-      particleCount: 200,
-      spread: 90,
-      origin: { y: 0.6 }
-    });
-  }
-for (let i = 0; i < 20; i++) {
-  setTimeout(() => {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.textContent = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-
-    document.body.appendChild(heart);
-
-    setTimeout(() => heart.remove(), 4000);
-  }, i * 150);
-}
-  setTimeout(() => {
-    puzzle.style.display = "none";
-    message.classList.remove("hidden");
-  }, 700);
-}
-
-drawBoard();
+function launchHearts() {
+  for (let i = 0; i < 30
